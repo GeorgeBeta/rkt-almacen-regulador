@@ -1,0 +1,17 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header';
+import type { User } from '../../store/auth';
+
+// El middleware ya se encarga de proteger la ruta y de pasar el usuario.
+const user = Astro.locals.user as User | null;
+---
+
+<Layout title="Ver Pedidos - RKT Regulador">
+	<Header client:load user={user} />
+	<main class="container">
+		<h1>Listado de Pedidos</h1>
+		<p>Aquí se mostrará la lista de pedidos existentes.</p>
+        <!-- En el futuro, aquí irá una tabla con los datos de los pedidos -->
+	</main>
+</Layout>
