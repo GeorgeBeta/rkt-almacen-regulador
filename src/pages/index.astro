@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LoginForm from '../components/LoginForm';
+import type { User } from '../store/auth';
+
+// Si el usuario ya está en el store (sesión de servidor), redirigir al dashboard
+// NOTA: Esto requiere SSR (output: 'server' en astro.config.mjs)
+const sessionCookie = Astro.cookies.get('session');
+const user: User | null = sessionCookie ? JSON.parse(sessionCookie.value) : null;
+if (user) {
+	return Astro.redirect('/home');
+}
+---
+
+<Layout title="Login - RKT Regulador">
+	<!-- <h2>Iniciar Sesión</h2>
+	<p>
+		Usa el usuario de prueba: <strong>demo@rkt-regulador.com</strong> / <strong>demo123</strong>
+	</p> -->
+	<LoginForm client:load />
+</Layout>

@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { $user } from '../../store/auth';
+
+if (!$user.get()) {
+    return Astro.redirect('/');
+}
+---
+<Layout title="Subir Pedido">
+    <h2>Subir Nuevo Pedido</h2>
+    <!-- Aquí irá el formulario para subir el PDF -->
+</Layout>

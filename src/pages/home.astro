@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import type { User } from '../store/auth';
+
+// Protegemos la ruta para que solo usuarios autenticados puedan acceder
+const sessionCookie = Astro.cookies.get('session');
+const user: User | null = sessionCookie ? JSON.parse(sessionCookie.value) : null;
+
+if (!user) {
+    return Astro.redirect('/');
+}
+---
+<Layout title="Home - RKT Regulador">
+    <h3>Sistema de Gestión de Pedidos para Almacenes Reguladores de RIKUTEC</h3>
+    <!-- Aquí puedes añadir más contenido para la página de bienvenida -->
+</Layout>

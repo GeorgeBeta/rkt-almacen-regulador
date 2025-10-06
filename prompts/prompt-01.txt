@@ -1,0 +1,14 @@
+# Concepto general de la aplicación
+Necesito crear una aplicación, esta que empezamos a hacer para poder subir ficheros .pdf y que luego el backend lo envíe a analizar con Amazon Textract., extraiga los datos del pedidos y los envie a una base de datos "pedidos".
+Esta misma aplicación será capaza de mostrar los registos de la base de datos "pedidos"
+
+# Especificación de la aplicación
+- Será la parte frontend de la aplicación
+- Luego usaré AWS Amplify para hacer el backend
+- Esta aplicación será de filosofía Serverless
+- Usará Astro y React
+- Necesito que tenga login y permita el mantenimiento (crud) de los usuarios. Además a modo de dato mock tenga un usuario demo@rkt-regulador.com
+con password demo123
+- Que sea lo más sencilla posible
+- Por favor, ponme todas las llamadas apis en un servicio
+- Crea un menu con las siguientes opciones: "Subir pedido", "Ver pedidos", "Usuarios" y "Salir
