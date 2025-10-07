@@ -44,6 +44,12 @@ El núcleo de la solución se basa en los siguientes servicios de AWS:
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app. The build step is not required when using JavaScript.
 
+## Environments variables
+Fichero .env
+* PUBLIC_IS_MOCK ==> true. Permite el usuario demo@rkt-regulador.com con password demo123
+                        y las cajas de texto está pre-rellenadas
+* PUBLIC_IS_MOCK ==> false. No pernite el usuario DEMO
+
 ## Useful commands
 
 * `npm install`

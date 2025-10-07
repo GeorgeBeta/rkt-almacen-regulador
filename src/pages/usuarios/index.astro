@@ -70,12 +70,12 @@ if (!user) {
         ];
 
         // Elementos del DOM
-        const modal = document.getElementById('modal-usuario');
-        const btnNuevo = document.getElementById('btn-nuevo-usuario');
-        const btnCerrar = document.querySelector('.close');
-        const btnCancelar = document.getElementById('btn-cancelar');
-        const form = document.getElementById('form-usuario');
-        const tbody = document.getElementById('usuarios-tbody');
+        const modal = document.getElementById('modal-usuario') as HTMLElement;
+        const btnNuevo = document.getElementById('btn-nuevo-usuario') as HTMLButtonElement;
+        const btnCerrar = document.querySelector('.close') as HTMLElement;
+        const btnCancelar = document.getElementById('btn-cancelar') as HTMLButtonElement;
+        const form = document.getElementById('form-usuario') as HTMLFormElement;
+        const tbody = document.getElementById('usuarios-tbody') as HTMLTableSectionElement;
 
         // Cargar usuarios en la tabla
         function cargarUsuarios() {
@@ -102,20 +102,26 @@ if (!user) {
 
             // Agregar event listeners a los botones
             document.querySelectorAll('.btn-edit').forEach(btn => {
-                btn.addEventListener('click', (e) => editarUsuario(parseInt(e.target.dataset.id)));
+                btn.addEventListener('click', (e) => {
+                    const target = e.target as HTMLButtonElement;
+                    editarUsuario(parseInt(target.dataset.id || '0'));
+                });
             });
 
             document.querySelectorAll('.btn-toggle').forEach(btn => {
-                btn.addEventListener('click', (e) => toggleUsuario(parseInt(e.target.dataset.id)));
+                btn.addEventListener('click', (e) => {
+                    const target = e.target as HTMLButtonElement;
+                    toggleUsuario(parseInt(target.dataset.id || '0'));
+                });
             });
         }
 
         // Abrir modal para nuevo usuario
         function abrirModal(usuario = null) {
-            const modalTitle = document.getElementById('modal-title');
-            const emailInput = document.getElementById('email');
-            const nameInput = document.getElementById('name');
-            const passwordInput = document.getElementById('password');
+            const modalTitle = document.getElementById('modal-title') as HTMLElement;
+            const emailInput = document.getElementById('email') as HTMLInputElement;
+            const nameInput = document.getElementById('name') as HTMLInputElement;
+            const passwordInput = document.getElementById('password') as HTMLInputElement;
 
             if (usuario) {
                 modalTitle.textContent = 'Editar Usuario';
@@ -184,8 +190,8 @@ if (!user) {
             const newId = Math.max(...usuarios.map(u => u.id)) + 1;
             usuarios.push({
                 id: newId,
-                email: email,
-                name: name,
+                email: email as string,
+                name: name as string,
                 active: true
             });
 

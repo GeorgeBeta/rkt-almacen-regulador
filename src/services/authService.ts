@@ -8,10 +8,13 @@ import type { User } from '../store/auth';
  * @returns
  */
 export async function login(email: string, password: string): Promise<User | null> {
-    // Mock user
-    if (email === 'demo@rkt-regulador.com' && password === 'demo123') {
+    const isMock = import.meta.env.PUBLIC_IS_MOCK === 'true';
+    
+    if (isMock && email === 'demo@rkt-regulador.com' && password === 'demo123') {
         return { email: 'demo@rkt-regulador.com', name: 'Usuario Demo' };
     }
+    
+    // Aquí iría la lógica real de autenticación con AWS Cognito
     return null;
 }
 

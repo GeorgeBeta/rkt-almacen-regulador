@@ -66,11 +66,20 @@ const errorStyles: React.CSSProperties = {
 };
 
 const LoginForm = () => {
-    const [email, setEmail] = useState('demo@rkt-regulador.com');
-    const [password, setPassword] = useState('demo123');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isButtonHovered, setIsButtonHovered] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+
+    // Inicializar valores mock después del montaje del componente
+    useEffect(() => {
+        const isMock = import.meta.env.PUBLIC_IS_MOCK === 'true';
+        if (isMock) {
+            setEmail('demo@rkt-regulador.com');
+            setPassword('demo123');
+        }
+    }, []);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
