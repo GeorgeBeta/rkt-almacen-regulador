@@ -1,10 +1,38 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ProtectedRoute from '../components/ProtectedRoute';
 ---
 <Layout title="Home - RKT Regulador">
-    <ProtectedRoute client:visible>
+    <div id="loading" style="text-align: center; padding: 2rem;">Cargando...</div>
+    <div id="content" style="display: none;">
         <h3>Sistema de Gestión de Pedidos para Almacenes Reguladores de RIKUTEC</h3>
         <!-- Aquí puedes añadir más contenido para la página de bienvenida -->
-    </ProtectedRoute>
+    </div>
+    <div id="no-auth" style="display: none; text-align: center; padding: 2rem;">
+        <h3>Acceso no autorizado</h3>
+        <p>Debe iniciar sesión para acceder a esta página.</p>
+        <a href="/" style="background: #007bff; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px;">Ir al Login</a>
+    </div>
 </Layout>
+
+<script is:inline>
+    function checkAuth() {
+        const session = localStorage.getItem('rkt-session');
+        const loading = document.getElementById('loading');
+        const content = document.getElementById('content');
+        const noAuth = document.getElementById('no-auth');
+        
+        if (session) {
+            loading.style.display = 'none';
+            content.style.display = 'block';
+        } else {
+            loading.style.display = 'none';
+            noAuth.style.display = 'block';
+        }
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', checkAuth);
+    } else {
+        checkAuth();
+    }
+</script>
