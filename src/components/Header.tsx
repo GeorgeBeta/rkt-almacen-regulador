@@ -11,7 +11,8 @@ const Header = () => {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        setUser(getSession());
+        const session = getSession();
+        setUser(session);
     }, []);
 
     const handleLogout = () => {

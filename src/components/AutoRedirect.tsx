@@ -7,16 +7,19 @@ interface AutoRedirectProps {
 
 const AutoRedirect: React.FC<AutoRedirectProps> = ({ children }) => {
     const [isChecking, setIsChecking] = useState(true);
+    const [redirecting, setRedirecting] = useState(false);
 
     useEffect(() => {
         if (isAuthenticated()) {
-            window.location.href = '/home';
+            setRedirecting(true);
+            // Usar replace para evitar bucles
+            window.location.replace('/home');
         } else {
             setIsChecking(false);
         }
     }, []);
 
-    if (isChecking) {
+    if (isChecking || redirecting) {
         return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>Cargando...</div>;
     }
 
