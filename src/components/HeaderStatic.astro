@@ -34,8 +34,12 @@
     function initHeader() {
         const session = localStorage.getItem('rkt-session');
         if (session) {
-            document.getElementById('nav-desktop').style.display = 'flex';
-            document.getElementById('menu-toggle').style.display = 'block';
+            // Solo mostrar menú desktop en pantallas grandes
+            if (window.innerWidth > 768) {
+                document.getElementById('nav-desktop').style.display = 'flex';
+            } else {
+                document.getElementById('menu-toggle').style.display = 'block';
+            }
         }
 
         function logout() {
@@ -58,6 +62,21 @@
                 navMobile.style.display = isMenuOpen ? 'flex' : 'none';
             });
         }
+        
+        // Manejar cambios de tamaño de ventana
+        window.addEventListener('resize', () => {
+            const session = localStorage.getItem('rkt-session');
+            if (session) {
+                if (window.innerWidth > 768) {
+                    document.getElementById('nav-desktop').style.display = 'flex';
+                    document.getElementById('menu-toggle').style.display = 'none';
+                    navMobile.style.display = 'none';
+                } else {
+                    document.getElementById('nav-desktop').style.display = 'none';
+                    document.getElementById('menu-toggle').style.display = 'block';
+                }
+            }
+        })
     }
 
     if (document.readyState === 'loading') {

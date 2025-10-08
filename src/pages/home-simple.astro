@@ -12,7 +12,7 @@
         .header-content { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
         .logo h2 { margin: 0; font-size: 1.2rem; }
         .nav { display: flex; gap: 1rem; }
-        .nav a, .nav button { color: white; text-decoration: none; padding: 0.5rem; background: none; border: none; cursor: pointer; border-radius: 4px; }
+        .nav a, .nav button { color: white; text-decoration: none; padding: 0.5rem; background: none; border: none; cursor: pointer; }
         .nav a:hover, .nav button:hover { background: rgba(255,255,255,0.1); }
         main { max-width: 1200px; margin: 2rem auto; padding: 1rem; background-color: white; border-radius: 8px; }
         .hidden { display: none; }
@@ -47,11 +47,10 @@
     </main>
 
     <script>
-        // Función logout global
-        window.logout = function() {
+        function logout() {
             localStorage.removeItem('rkt-session');
             window.location.href = '/';
-        };
+        }
 
         // Verificación simple
         const session = localStorage.getItem('rkt-session');
