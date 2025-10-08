@@ -9,22 +9,19 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
-    const [redirecting, setRedirecting] = useState(false);
 
     useEffect(() => {
         const session = getSession();
         if (session) {
             setUser(session);
-            setLoading(false);
         } else {
-            setRedirecting(true);
-            // Usar replace para evitar bucles
-            window.location.replace('/');
+            window.location.href = '/';
         }
+        setLoading(false);
     }, []);
 
-    if (loading || redirecting) {
-        return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>Cargando...</div>;
+    if (loading) {
+        return <div>Cargando...</div>;
     }
 
     return user ? <>{children}</> : null;

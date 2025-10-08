@@ -1,23 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import ProtectedRoute from '../../components/ProtectedRoute';
 ---
 
 <Layout title="Subir Pedido - RKT Regulador">
-	<div id="protected-content" style="display: none;">
+	<ProtectedRoute client:load>
 		<div class="container">
 			<h1>Subir Nuevo Pedido</h1>
 			<p>Utilice el formulario a continuación para subir un nuevo fichero de pedido (PDF).</p>
 			<!-- En el futuro, aquí irá el formulario de subida de ficheros -->
 		</div>
-	</div>
-	
-	<script>
-		// Verificar autenticación sin React
-		const session = localStorage.getItem('rkt-session');
-		if (session) {
-			document.getElementById('protected-content').style.display = 'block';
-		} else {
-			window.location.replace('/');
-		}
-	</script>
+	</ProtectedRoute>
 </Layout>
