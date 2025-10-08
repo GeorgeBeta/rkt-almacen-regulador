@@ -8,12 +8,14 @@ import Layout from '../layouts/Layout.astro';
     </div>
     
     <script>
-        // Verificar autenticación sin React
-        const session = localStorage.getItem('rkt-session');
-        if (session) {
-            document.getElementById('protected-content').style.display = 'block';
-        } else {
-            window.location.replace('/');
-        }
+        // Verificar autenticación sin React con delay para evitar bucles
+        setTimeout(() => {
+            const session = localStorage.getItem('rkt-session');
+            if (session) {
+                document.getElementById('protected-content').style.display = 'block';
+            } else {
+                window.location.replace('/');
+            }
+        }, 100);
     </script>
 </Layout>

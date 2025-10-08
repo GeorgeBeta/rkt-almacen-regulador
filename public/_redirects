@@ -1,0 +1,9 @@
+# Redirects for Amplify Hosting
+# Handle SPA routing - redirect all routes to their respective HTML files
+/home /home/index.html 200
+/usuarios /usuarios/index.html 200
+/pedidos /pedidos/index.html 200
+/pedidos/subir /pedidos/subir/index.html 200
+
+# Fallback for any other routes
+/* /index.html 404

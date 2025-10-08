@@ -5,6 +5,10 @@ import react from '@astrojs/react';
 export default defineConfig({
   integrations: [react()], // Esta línea activa la integración con React
   output: 'static',
+  build: {
+    format: 'directory'
+  },
+  trailingSlash: 'always',
   // Estas últimas líneas se puedn comentar si se quiere el menú - depuración de Astro
   devToolbar: {
     enabled: false
