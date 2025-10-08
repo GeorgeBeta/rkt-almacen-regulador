@@ -3,8 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import AuthChecker from '../components/AuthChecker.astro';
 ---
 <Layout title="Home - RKT Regulador">
-    <AuthChecker />
-    <div id="protected-content" style="display: none;">
+    <ProtectedRoute client:visible>
         <h3>Sistema de Gestión de Pedidos para Almacenes Reguladores de RIKUTEC</h3>
         <!-- Aquí puedes añadir más contenido para la página de bienvenida -->
     </div>
