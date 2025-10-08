@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getSession, clearSession } from '../utils/auth';
 
 type User = {
     email: string;
     name: string;
 }
 
-const Header = ({ user }: { user: User | null }) => {
+const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [user, setUser] = useState<User | null>(null);
+
+    useEffect(() => {
+        setUser(getSession());
+    }, []);
+
+    const handleLogout = () => {
+        clearSession();
+        window.location.href = '/';
+    };
 
     const styles = `
         .header {
@@ -118,7 +129,7 @@ const Header = ({ user }: { user: User | null }) => {
                                 <a href="/pedidos/subir" className="nav-link">Subir pedido</a>
                                 <a href="/pedidos" className="nav-link">Ver pedidos</a>
                                 <a href="/usuarios" className="nav-link">Usuarios</a>
-                                <a href="/api/logout" className="nav-link">Salir</a>
+                                <button onClick={handleLogout} className="nav-link" style={{background: 'none', border: 'none'}}>Salir</button>
                             </nav>
                             
                             <button 
@@ -134,7 +145,7 @@ const Header = ({ user }: { user: User | null }) => {
                                 <a href="/pedidos/subir" className="nav-link">Subir pedido</a>
                                 <a href="/pedidos" className="nav-link">Ver pedidos</a>
                                 <a href="/usuarios" className="nav-link">Usuarios</a>
-                                <a href="/api/logout" className="nav-link">Salir</a>
+                                <button onClick={handleLogout} className="nav-link" style={{background: 'none', border: 'none'}}>Salir</button>
                             </nav>
                         </>
                     )}

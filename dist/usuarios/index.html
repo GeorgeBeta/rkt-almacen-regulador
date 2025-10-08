@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v4.16.19"><title>Usuarios - RKT Regulador</title><style>body{font-family:sans-serif;margin:0;background-color:#f4f4f4}main{max-width:1200px;margin:2rem auto;padding:1rem;background-color:#fff;border-radius:8px}
+.usuarios-container[data-astro-cid-whk7i55z]{padding:2rem;max-width:1200px;margin:0 auto}.usuarios-actions[data-astro-cid-whk7i55z]{margin-bottom:2rem}.btn[data-astro-cid-whk7i55z]{padding:.5rem 1rem;border:none;border-radius:4px;cursor:pointer;font-size:.9rem;text-decoration:none;display:inline-block}.btn-primary[data-astro-cid-whk7i55z]{background:#007bff;color:#fff}.btn-secondary[data-astro-cid-whk7i55z]{background:#6c757d;color:#fff}.btn-small[data-astro-cid-whk7i55z]{padding:.25rem .5rem;font-size:.8rem;margin-right:.5rem}.btn-edit[data-astro-cid-whk7i55z]{background:#28a745;color:#fff}.btn-toggle[data-astro-cid-whk7i55z]{background:#ffc107;color:#212529}.usuarios-table[data-astro-cid-whk7i55z]{width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 10px #0000001a}.usuarios-table[data-astro-cid-whk7i55z] th[data-astro-cid-whk7i55z],.usuarios-table[data-astro-cid-whk7i55z] td[data-astro-cid-whk7i55z]{padding:1rem;text-align:left;border-bottom:1px solid #dee2e6}.usuarios-table[data-astro-cid-whk7i55z] th[data-astro-cid-whk7i55z]{background:#f8f9fa;font-weight:600}.status[data-astro-cid-whk7i55z]{padding:.25rem .5rem;border-radius:12px;font-size:.8rem;font-weight:500}.status[data-astro-cid-whk7i55z].active{background:#d4edda;color:#155724}.status[data-astro-cid-whk7i55z].inactive{background:#f8d7da;color:#721c24}.modal[data-astro-cid-whk7i55z]{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background-color:#00000080}.modal-content[data-astro-cid-whk7i55z]{background-color:#fff;margin:5% auto;padding:2rem;border-radius:8px;width:90%;max-width:500px;position:relative}.close[data-astro-cid-whk7i55z]{position:absolute;right:1rem;top:1rem;font-size:1.5rem;cursor:pointer}.form-group[data-astro-cid-whk7i55z]{margin-bottom:1rem}.form-group[data-astro-cid-whk7i55z] label[data-astro-cid-whk7i55z]{display:block;margin-bottom:.5rem;font-weight:600}.form-group[data-astro-cid-whk7i55z] input[data-astro-cid-whk7i55z]{width:100%;padding:.5rem;border:1px solid #ccc;border-radius:4px;box-sizing:border-box}.form-actions[data-astro-cid-whk7i55z]{display:flex;gap:1rem;justify-content:flex-end;margin-top:2rem}@media (max-width: 768px){.usuarios-container[data-astro-cid-whk7i55z]{padding:1rem}.usuarios-table[data-astro-cid-whk7i55z]{font-size:.9rem}.usuarios-table[data-astro-cid-whk7i55z] th[data-astro-cid-whk7i55z],.usuarios-table[data-astro-cid-whk7i55z] td[data-astro-cid-whk7i55z]{padding:.5rem}}
+</style><script type="module">let o=[{id:1,email:"demo@rkt-regulador.com",name:"Usuario Demo",active:!0},{id:2,email:"admin@rkt-regulador.com",name:"Administrador",active:!0},{id:3,email:"operador@rkt-regulador.com",name:"Operador",active:!1}];const i=document.getElementById("modal-usuario"),g=document.getElementById("btn-nuevo-usuario"),p=document.querySelector(".close"),b=document.getElementById("btn-cancelar"),r=document.getElementById("form-usuario"),s=document.getElementById("usuarios-tbody");function l(){s.innerHTML="",o.forEach(t=>{const e=document.createElement("tr");e.innerHTML=`
+                    <td>${t.email}</td>
+                    <td>${t.name}</td>
+                    <td>
+                        <span class="status ${t.active?"active":"inactive"}">
+                            ${t.active?"Activo":"Inactivo"}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-small btn-edit" data-id="${t.id}">Editar</button>
+                        <button class="btn btn-small btn-toggle" data-id="${t.id}">
+                            ${t.active?"Desactivar":"Activar"}
+                        </button>
+                    </td>
+                `,s.appendChild(e)}),document.querySelectorAll(".btn-edit").forEach(t=>{t.addEventListener("click",e=>{const a=e.target;E(parseInt(a.dataset.id||"0"))})}),document.querySelectorAll(".btn-toggle").forEach(t=>{t.addEventListener("click",e=>{const a=e.target;f(parseInt(a.dataset.id||"0"))})})}function m(t=null){const e=document.getElementById("modal-title"),a=document.getElementById("email"),d=document.getElementById("name"),n=document.getElementById("password");t?(e.textContent="Editar Usuario",a.value=t.email,d.value=t.name,n.value="",n.placeholder="Dejar vacío para mantener contraseña actual",n.required=!1):(e.textContent="Nuevo Usuario",r.reset(),n.placeholder="",n.required=!0),i.style.display="block"}function c(){i.style.display="none",r.reset()}function E(t){const e=o.find(a=>a.id===t);e&&m(e)}function f(t){const e=o.find(a=>a.id===t);e&&(e.active=!e.active,l())}g.addEventListener("click",()=>m());p.addEventListener("click",c);b.addEventListener("click",c);window.addEventListener("click",t=>{t.target===i&&c()});r.addEventListener("submit",t=>{t.preventDefault();const e=new FormData(r),a=e.get("email"),d=e.get("name"),n=e.get("password");console.log("Guardando usuario:",{email:a,name:d,password:n});const u=Math.max(...o.map(v=>v.id))+1;o.push({id:u,email:a,name:d,active:!0}),l(),c()});l();
+</script></head> <body> <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event("astro:load"));})();;(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,"Component");d(this,"hydrator");d(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let p;try{p=this.hasAttribute("props")?m(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});d(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[h,{default:p}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),u=this.getAttribute("component-export")||"default";if(!u.includes("."))this.Component=h[u];else{this.Component=h;for(let f of u.split("."))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",y)}})();</script><astro-island uid="ZsN0OU" prefix="r0" component-url="/_astro/Header.BCL3KuXw.js" component-export="default" renderer-url="/_astro/client.DrE9CFQR.js" props="{}" ssr="" client="load" opts="{&quot;name&quot;:&quot;Header&quot;,&quot;value&quot;:true}" await-children=""><style>
+        .header {
+            background: #333;
+            color: #fff;
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo h2 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        
+        .nav-desktop {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-mobile {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #333;
+            flex-direction: column;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .nav-mobile.open {
+            display: flex;
+        }
+        
+        .nav-mobile a {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #555;
+        }
+        
+        .nav-mobile a:last-child {
+            border-bottom: none;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+        
+        .desktop-title { display: inline; }
+        .tablet-title, .mobile-title { display: none; }
+        
+        @media (max-width: 768px) {
+            .nav-desktop { display: none; }
+            .menu-toggle { display: block; }
+            .desktop-title, .mobile-title { display: none; }
+            .tablet-title { display: inline; }
+        }
+        
+        @media (max-width: 480px) {
+            .desktop-title, .tablet-title { display: none; }
+            .mobile-title { display: inline; }
+            .logo h2 { font-size: 1rem; }
+        }
+    </style><header class="header"><div class="header-content"><div class="logo"><h2><span class="desktop-title">Gestión Almacén Regulador</span><span class="tablet-title">Gestión Regulador</span><span class="mobile-title">Almacén</span></h2></div></div></header><!--astro:end--></astro-island> <main>  <astro-island uid="nI64t" prefix="r1" component-url="/_astro/ProtectedRoute.B6rZ-Uj_.js" component-export="default" renderer-url="/_astro/client.DrE9CFQR.js" props="{&quot;data-astro-cid-whk7i55z&quot;:[0,true]}" ssr="" client="load" opts="{&quot;name&quot;:&quot;ProtectedRoute&quot;,&quot;value&quot;:true}" await-children=""><div>Cargando...</div><template data-astro-template> <div class="usuarios-container" data-astro-cid-whk7i55z> <h2 data-astro-cid-whk7i55z>Gestión de Usuarios</h2> <div class="usuarios-actions" data-astro-cid-whk7i55z> <button id="btn-nuevo-usuario" class="btn btn-primary" data-astro-cid-whk7i55z>Nuevo Usuario</button> </div> <div class="usuarios-list" data-astro-cid-whk7i55z> <table class="usuarios-table" data-astro-cid-whk7i55z> <thead data-astro-cid-whk7i55z> <tr data-astro-cid-whk7i55z> <th data-astro-cid-whk7i55z>Email</th> <th data-astro-cid-whk7i55z>Nombre</th> <th data-astro-cid-whk7i55z>Estado</th> <th data-astro-cid-whk7i55z>Acciones</th> </tr> </thead> <tbody id="usuarios-tbody" data-astro-cid-whk7i55z> <!-- Los usuarios se cargarán dinámicamente --> </tbody> </table> </div> <!-- Modal para nuevo/editar usuario --> <div id="modal-usuario" class="modal" data-astro-cid-whk7i55z> <div class="modal-content" data-astro-cid-whk7i55z> <span class="close" data-astro-cid-whk7i55z>&times;</span> <h3 id="modal-title" data-astro-cid-whk7i55z>Nuevo Usuario</h3> <form id="form-usuario" data-astro-cid-whk7i55z> <div class="form-group" data-astro-cid-whk7i55z> <label for="email" data-astro-cid-whk7i55z>Email:</label> <input type="email" id="email" name="email" required data-astro-cid-whk7i55z> </div> <div class="form-group" data-astro-cid-whk7i55z> <label for="name" data-astro-cid-whk7i55z>Nombre:</label> <input type="text" id="name" name="name" required data-astro-cid-whk7i55z> </div> <div class="form-group" data-astro-cid-whk7i55z> <label for="password" data-astro-cid-whk7i55z>Contraseña:</label> <input type="password" id="password" name="password" required data-astro-cid-whk7i55z> </div> <div class="form-actions" data-astro-cid-whk7i55z> <button type="submit" class="btn btn-primary" data-astro-cid-whk7i55z>Guardar</button> <button type="button" class="btn btn-secondary" id="btn-cancelar" data-astro-cid-whk7i55z>Cancelar</button> </div> </form> </div> </div> </div>   </template><!--astro:end--></astro-island>  </main>  </body> </html>

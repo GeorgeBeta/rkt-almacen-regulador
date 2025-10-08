@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { login } from '../services/authService';
+import { saveSession } from '../utils/auth';
 
 const formContainerStyles: React.CSSProperties = {
     display: 'flex',
@@ -86,17 +88,11 @@ const LoginForm = () => {
         setIsLoading(true);
         setError('');
 
-        const formData = new FormData();
-        formData.append('email', email);
-        formData.append('password', password);
+        const user = await login(email, password);
 
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            body: formData,
-        });
-
-        if (response.ok && response.redirected) {
-            window.location.href = response.url;
+        if (user) {
+            saveSession(user);
+            window.location.href = '/home';
         } else {
             setError('Email o contraseña incorrectos');
             setIsLoading(false);
@@ -125,6 +121,7 @@ const LoginForm = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         style={inputStyles}
+                        autoComplete="username"
                     />
                 </div>
                 <div style={formGroupStyles}>
@@ -136,6 +133,7 @@ const LoginForm = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         style={inputStyles}
+                        autoComplete="current-password"
                     />
                 </div>
                 <button

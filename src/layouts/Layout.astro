@@ -1,15 +1,11 @@
 ---
 import Header from '../components/Header';
-import type { User } from '../store/auth';
 
 export interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
-
-const sessionCookie = Astro.cookies.get('session');
-const user: User | null = sessionCookie ? JSON.parse(sessionCookie.value) : null;
 ---
 
 <!DOCTYPE html>
@@ -22,7 +18,7 @@ const user: User | null = sessionCookie ? JSON.parse(sessionCookie.value) : null
 		<title>{title}</title>
 	</head>
 	<body>
-		<Header client:load user={user} />
+		<Header client:load />
 		<main>
 			<slot />
 		</main>

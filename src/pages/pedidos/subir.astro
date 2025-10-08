@@ -1,20 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import type { User } from '../../store/auth';
-
-// Protegemos la ruta para que solo usuarios autenticados puedan acceder
-const sessionCookie = Astro.cookies.get('session');
-const user: User | null = sessionCookie ? JSON.parse(sessionCookie.value) : null;
-
-if (!user) {
-    return Astro.redirect('/');
-}
+import ProtectedRoute from '../../components/ProtectedRoute';
 ---
 
 <Layout title="Subir Pedido - RKT Regulador">
-	<div class="container">
-		<h1>Subir Nuevo Pedido</h1>
-		<p>Utilice el formulario a continuación para subir un nuevo fichero de pedido (PDF).</p>
-        <!-- En el futuro, aquí irá el formulario de subida de ficheros -->
-	</div>
+	<ProtectedRoute client:load>
+		<div class="container">
+			<h1>Subir Nuevo Pedido</h1>
+			<p>Utilice el formulario a continuación para subir un nuevo fichero de pedido (PDF).</p>
+			<!-- En el futuro, aquí irá el formulario de subida de ficheros -->
+		</div>
+	</ProtectedRoute>
 </Layout>

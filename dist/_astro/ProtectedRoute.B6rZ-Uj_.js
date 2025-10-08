@@ -1,0 +1,1 @@
+import{g as u,j as e}from"./auth.kw40fiLr.js";import{r as t}from"./index.CVf8TyFT.js";const f=({children:o})=>{const[r,n]=t.useState(null),[a,i]=t.useState(!0);return t.useEffect(()=>{const s=u();s?n(s):window.location.href="/",i(!1)},[]),a?e.jsx("div",{children:"Cargando..."}):r?e.jsx(e.Fragment,{children:o}):null};export{f as default};
