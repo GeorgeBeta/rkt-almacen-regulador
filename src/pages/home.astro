@@ -1,10 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ProtectedRoute from '../components/ProtectedRoute';
 ---
 <Layout title="Home - RKT Regulador">
-    <ProtectedRoute client:load>
+    <div id="protected-content" style="display: none;">
         <h3>Sistema de Gestión de Pedidos para Almacenes Reguladores de RIKUTEC</h3>
         <!-- Aquí puedes añadir más contenido para la página de bienvenida -->
-    </ProtectedRoute>
+    </div>
+    
+    <script>
+        // Verificar autenticación sin React
+        const session = localStorage.getItem('rkt-session');
+        if (session) {
+            document.getElementById('protected-content').style.display = 'block';
+        } else {
+            window.location.replace('/');
+        }
+    </script>
 </Layout>
