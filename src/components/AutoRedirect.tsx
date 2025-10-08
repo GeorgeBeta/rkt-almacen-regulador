@@ -6,21 +6,20 @@ interface AutoRedirectProps {
 }
 
 const AutoRedirect: React.FC<AutoRedirectProps> = ({ children }) => {
-    const [isChecking, setIsChecking] = useState(true);
-    const [redirecting, setRedirecting] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
 
     useEffect(() => {
+        // Solo verificar, no redirigir automáticamente
         if (isAuthenticated()) {
-            setRedirecting(true);
-            // Usar replace para evitar bucles
-            window.location.replace('/home');
+            // Mostrar enlace para ir a home en lugar de redirección automática
+            window.location.href = '/home';
         } else {
-            setIsChecking(false);
+            setShowLogin(true);
         }
     }, []);
 
-    if (isChecking || redirecting) {
-        return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>Cargando...</div>;
+    if (!showLogin) {
+        return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>Verificando...</div>;
     }
 
     return <>{children}</>;
