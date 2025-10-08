@@ -1,0 +1,162 @@
+---
+---
+<header class="header">
+    <div class="header-content">
+        <div class="logo">
+            <h2>
+                <span class="desktop-title">Gestión Almacén Regulador</span>
+                <span class="tablet-title">Gestión Regulador</span>
+                <span class="mobile-title">Almacén</span>
+            </h2>
+        </div>
+
+        <nav class="nav-desktop" id="nav-desktop" style="display: none;">
+            <a href="/home" class="nav-link">Home</a>
+            <a href="/pedidos/subir" class="nav-link">Subir pedido</a>
+            <a href="/pedidos" class="nav-link">Ver pedidos</a>
+            <a href="/usuarios" class="nav-link">Usuarios</a>
+            <button id="logout-btn" class="nav-link logout-btn">Salir</button>
+        </nav>
+        
+        <button class="menu-toggle" id="menu-toggle" style="display: none;">☰</button>
+        
+        <nav class="nav-mobile" id="nav-mobile">
+            <a href="/home" class="nav-link">Home</a>
+            <a href="/pedidos/subir" class="nav-link">Subir pedido</a>
+            <a href="/pedidos" class="nav-link">Ver pedidos</a>
+            <a href="/usuarios" class="nav-link">Usuarios</a>
+            <button id="logout-btn-mobile" class="nav-link logout-btn">Salir</button>
+        </nav>
+    </div>
+</header>
+
+<script is:inline>
+    function initHeader() {
+        const session = localStorage.getItem('rkt-session');
+        if (session) {
+            document.getElementById('nav-desktop').style.display = 'flex';
+            document.getElementById('menu-toggle').style.display = 'block';
+        }
+
+        function logout() {
+            localStorage.removeItem('rkt-session');
+            window.location.href = '/';
+        }
+
+        const logoutBtn = document.getElementById('logout-btn');
+        const logoutBtnMobile = document.getElementById('logout-btn-mobile');
+        if (logoutBtn) logoutBtn.addEventListener('click', logout);
+        if (logoutBtnMobile) logoutBtnMobile.addEventListener('click', logout);
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMobile = document.getElementById('nav-mobile');
+        let isMenuOpen = false;
+
+        if (menuToggle && navMobile) {
+            menuToggle.addEventListener('click', () => {
+                isMenuOpen = !isMenuOpen;
+                navMobile.style.display = isMenuOpen ? 'flex' : 'none';
+            });
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initHeader);
+    } else {
+        initHeader();
+    }
+</script>
+
+<style>
+    .header {
+        background: #333;
+        color: #fff;
+        padding: 1rem;
+        position: relative;
+    }
+    
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .logo h2 {
+        margin: 0;
+        font-size: 1.2rem;
+    }
+    
+    .nav-desktop {
+        display: flex;
+        gap: 1.5rem;
+    }
+    
+    .nav-mobile {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #333;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    .nav-mobile a, .nav-mobile button {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #555;
+    }
+    
+    .nav-mobile a:last-child, .nav-mobile button:last-child {
+        border-bottom: none;
+    }
+    
+    .nav-link {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: background 0.2s;
+    }
+    
+    .nav-link:hover {
+        background: rgba(255,255,255,0.1);
+    }
+    
+    .logout-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: inherit;
+        font-family: inherit;
+    }
+    
+    .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.25rem;
+    }
+    
+    .desktop-title { display: inline; }
+    .tablet-title, .mobile-title { display: none; }
+    
+    @media (max-width: 768px) {
+        .nav-desktop { display: none !important; }
+        .menu-toggle { display: block !important; }
+        .desktop-title, .mobile-title { display: none; }
+        .tablet-title { display: inline; }
+    }
+    
+    @media (max-width: 480px) {
+        .desktop-title, .tablet-title { display: none; }
+        .mobile-title { display: inline; }
+        .logo h2 { font-size: 1rem; }
+    }
+</style>
