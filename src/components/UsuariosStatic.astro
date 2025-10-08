@@ -1,0 +1,97 @@
+---
+---
+<div style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+    <h2>Gestión de Usuarios</h2>
+    
+    <div style="margin-bottom: 2rem;">
+        <button id="btn-nuevo" style="padding: 0.5rem 1rem; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            Nuevo Usuario
+        </button>
+    </div>
+
+    <table id="usuarios-table" style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <thead>
+            <tr style="background: #f8f9fa;">
+                <th style="padding: 1rem; text-align: left; font-weight: 600;">Email</th>
+                <th style="padding: 1rem; text-align: left; font-weight: 600;">Nombre</th>
+                <th style="padding: 1rem; text-align: left; font-weight: 600;">Estado</th>
+                <th style="padding: 1rem; text-align: left; font-weight: 600;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="usuarios-tbody">
+        </tbody>
+    </table>
+</div>
+
+<script is:inline>
+    const usuarios = [
+        { id: 1, email: 'demo@rkt-regulador.com', name: 'Usuario Demo', active: true },
+        { id: 2, email: 'admin@rkt-regulador.com', name: 'Administrador', active: true },
+        { id: 3, email: 'operador@rkt-regulador.com', name: 'Operador', active: false },
+        { id: 4, email: 'supervisor@rkt-regulador.com', name: 'Supervisor', active: true },
+        { id: 5, email: 'almacen@rkt-regulador.com', name: 'Encargado Almacén', active: true },
+        { id: 6, email: 'logistica@rkt-regulador.com', name: 'Coordinador Logística', active: false },
+        { id: 7, email: 'calidad@rkt-regulador.com', name: 'Control Calidad', active: true }
+    ];
+
+    function cargarUsuarios() {
+        const tbody = document.getElementById('usuarios-tbody');
+        tbody.innerHTML = '';
+        
+        usuarios.forEach(usuario => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td style="padding: 1rem; border-bottom: 1px solid #dee2e6;">${usuario.email}</td>
+                <td style="padding: 1rem; border-bottom: 1px solid #dee2e6;">${usuario.name}</td>
+                <td style="padding: 1rem; border-bottom: 1px solid #dee2e6;">
+                    <span style="padding: 0.25rem 0.5rem; border-radius: 12px; font-size: 0.8rem; font-weight: 500; background: ${usuario.active ? '#d4edda' : '#f8d7da'}; color: ${usuario.active ? '#155724' : '#721c24'};">
+                        ${usuario.active ? 'Activo' : 'Inactivo'}
+                    </span>
+                </td>
+                <td style="padding: 1rem; border-bottom: 1px solid #dee2e6;">
+                    <button onclick="editarUsuario(${usuario.id})" style="padding: 0.25rem 0.5rem; font-size: 0.8rem; margin-right: 0.5rem; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Editar</button>
+                    <button onclick="eliminarUsuario(${usuario.id})" style="padding: 0.25rem 0.5rem; font-size: 0.8rem; margin-right: 0.5rem; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Eliminar</button>
+                    <button onclick="toggleUsuario(${usuario.id})" style="padding: 0.25rem 0.5rem; font-size: 0.8rem; background: #ffc107; color: #212529; border: none; border-radius: 4px; cursor: pointer;">
+                        ${usuario.active ? 'Desactivar' : 'Activar'}
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function editarUsuario(id) {
+        alert('Función editar usuario ' + id);
+    }
+
+    function eliminarUsuario(id) {
+        if (confirm('¿Está seguro de que desea eliminar este usuario?')) {
+            const index = usuarios.findIndex(u => u.id === id);
+            if (index > -1) {
+                usuarios.splice(index, 1);
+                cargarUsuarios();
+            }
+        }
+    }
+
+    function toggleUsuario(id) {
+        const usuario = usuarios.find(u => u.id === id);
+        if (usuario) {
+            usuario.active = !usuario.active;
+            cargarUsuarios();
+        }
+    }
+
+    function initUsuarios() {
+        cargarUsuarios();
+        document.getElementById('btn-nuevo').addEventListener('click', () => {
+            alert('Función nuevo usuario');
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initUsuarios);
+    } else {
+        initUsuarios();
+    }
+</script>

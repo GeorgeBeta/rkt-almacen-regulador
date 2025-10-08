@@ -1,11 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import UsuariosManager from '../../components/UsuariosManager';
+import UsuariosStatic from '../../components/UsuariosStatic.astro';
 ---
 <Layout title="Usuarios - RKT Regulador">
     <div id="loading" style="text-align: center; padding: 2rem;">Cargando...</div>
     <div id="content" style="display: none;">
-        <UsuariosManager client:load />
+        <UsuariosStatic />
     </div>
     <div id="no-auth" style="display: none; text-align: center; padding: 2rem;">
         <h3>Acceso no autorizado</h3>
