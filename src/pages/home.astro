@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import ProtectedRoute from '../components/ProtectedRoute';
 ---
 <Layout title="Home - RKT Regulador">
-    <ProtectedRoute client:load>
+    <ProtectedRoute client:visible>
         <h3>Sistema de Gestión de Pedidos para Almacenes Reguladores de RIKUTEC</h3>
         <!-- Aquí puedes añadir más contenido para la página de bienvenida -->
     </ProtectedRoute>
